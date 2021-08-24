@@ -1,14 +1,17 @@
 # Implementation of forcing experiments for SCM-MCM comparison in WRF
 
-## 1. Temperature and moisture perturbations
-* Perturbations to temperature ```(dT/dt)``` and moisture tendencies ```(dq/dt)``` take the form of the sum of a delta and Gaussian functions as per ```Equation 4``` in HK13
-* The perturbations (i.e. forcing) are enabled by setting ```scm_force = 1``` in the namelist
-* To perturb ```dT/dt```, set the flag ```perturb_t = 1``` in the namelist, and the amplitude of the perturbation can be set using the namelist option ```TtendAmp```
-* To perturb ```dq/dt```, set the flat ```perturb_q = 1``` in the namelist, and the amplitude of the perturbation can be set using the namelist option ```QtendAmp```
+Fortran modules and runtime files required to run experiments for comparing the behaviour of single-column model (SCM) vs. multi-column model (MCM) in WRF (v4.0.2).
+
+## 1. Temperature and moisture tendency perturbations
+* Based on the linear response function (LRF) framework of Kuang (2010)
+* Perturbations to temperature ```(dT/dt)``` and moisture tendencies ```(dq/dt)``` take the form of the sum of a delta and Gaussian functions as per ```Equation 4``` in Herman and Kuang (2010)
+* The perturbations (i.e. forcing) are enabled by setting ```force_lrf_flag = .true.``` in the namelist
+* To perturb ```dT/dt```, set the flag ```perturb_t_flag = .true.``` in the namelist, and the amplitude of the perturbation can be set using the namelist option ```TtendAmp```
+* To perturb ```dq/dt```, set the flat ```perturb_q_flag = .true.``` in the namelist, and the amplitude of the perturbation can be set using the namelist option ```QtendAmp```
 * To set the model level to apply the perturbation, use the ```j_pert``` option in the namelist
 * Modules involved:
-  * [module_first_rk_step_part1.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_first_rk_step_part1.F)
-  * [module_force_scm.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_force_scm.F)
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_force_lrf.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_force_lrf.F)
 
 ## 2. Fixed radiative cooling profile
 * Fixed radiative cooling profile of -1.5 K/d from the surface to near 200 hPa and decreases linearly to zero near 100 hPa (see ```Figure 1``` in HK13)
