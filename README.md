@@ -91,7 +91,13 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 * Required file (SST hotspot):
   * [sst_hotspot_input.txt](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/sst_hotspot_input.txt)
 
-## 7. Namelists
+## 10. Doubled-CO<sub>2</sub> forcing
+* Increase CO<sub>2</sub> amount in the atmosphere by doubling the concentration from 379 to 758 ppm
+* Modules involved:
+  * [module_ra_rrtmg_sw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_sw_2xco2.F)
+  * [module_ra_rrtmg_lw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_lw_2xco2.F)
+
+## 11. Namelists
 * Three namelists are required for this experiment:
   * [namelist.lrf.rce.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.rce.input) - namelist for first RCE run
   * [namelist.lrf.restart.ctrl.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.restart.ctrl.input) - namelist for CONTROL run from restart file
