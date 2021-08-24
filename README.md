@@ -92,7 +92,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [sst_hotspot_input.txt](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/sst_hotspot_input.txt)
 
 ## 10. Doubled-CO<sub>2</sub> forcing
-* Increase CO<sub>2</sub> amount in the atmosphere by doubling the concentration from 379 to 758 ppm
+* Increase CO<sub>2</sub> amount in the atmosphere by doubling the concentration from 379 to 758 ppm for the ```PerturbCO2``` simulations
 * Modules involved:
   * [module_ra_rrtmg_sw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_sw_2xco2.F)
   * [module_ra_rrtmg_lw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_lw_2xco2.F)
