@@ -43,7 +43,17 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_winds.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds.F)
 
-## 5. Stratospheric relaxation of T in PreRCE runs
+## 5. Wind shear
+* Apply vertical wind shear following the profile in Tompkins (2001)
+* Wind shear option is enabled by setting ```relax_u_shear_flag = .true.``` and ```relax_v_shear_flag = .true.``` in the namelist
+* The relaxation timescale can be set using the ```tau_relax_winds_shear``` option in the namelist
+* The U wind shear profile is read in from the ```u_shear_profile``` and ```v_shear_profile``` files in the run folder
+* *Note:* When applying wind shear (```relax_u_shear_flag = .true.```), wind nudging must be disabled, i.e. set ```relax_uv_flag = .false.``` in the namelist
+* Modules involved:
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_relax_winds.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds_shear.F)
+
+## 6. Stratospheric relaxation of T in PreRCE runs
 * Relax T above 100  hPa to 200 K in ```PreRCE``` runs
 * Enable stratospheric T relaxation by setting ```relax_t_strato_flag = .true.``` in the namelist
 * The relaxation timescale is set using the ```tau_relax_t_strato``` option in the namelist
@@ -51,7 +61,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_t_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_strato.F)
 
-## 5. Stratospheric relaxation of T and qv in CTRL and PERTURBATION runs
+## 7. Stratospheric relaxation of T and qv in CTRL and PERTURBATION runs
 * Temperature and moisture are relaxed to the ```PreRCE``` profiles at and above tropopause
 * The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
 * Stratospheric ```T``` and ```qv``` relaxation is enabled by setting ```relax_t_qv_strato_flag = .true.``` in the namelist
@@ -59,15 +69,16 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_t_qv_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_qv_strato.F)
   
-## 6. Surface type and sea surface temperature
+## 9. Surface type and sea surface temperature
 * Simulation is set over water surface by modifying the landmask and landuse indexs in the initialisation module:```grid%landmask = 0```(water surface) and ```grid%lu_index = 16``` (water landuse)
 * For SCM, the landmask and land use indices can also be set in the namelist: ```scm_lu_index = 16``` and ```scm_isltyp = 14```
-* For experiments with fixed sea surface temperature (SST), SST is set to 28 degree Celsius by setting ```sst_ideal = 301.15``` in the namelist
+* For experiments with fixed sea surface temperature (SST), SST is set to 28 degree Celsius by setting ```use_variable_sst_flag = .false.``` and ```sst_ideal = 301.15``` in the namelist
 * For experiments with variable SST (hotspot in middle of domain for MCM runs), the variable SST is enabled by setting ```use_variable_sst_flag = .true.``` in the namelist, the SST values will be read in from the ```sst_hotspot_input.txt``` file in the run folder
 * Modules involved:
   * [module_initialize_scm_xy.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_initialize_scm_xy.F)
 * Required file (SST hotspot):
   * [sst_hotspot_input.txt](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/sst_hotspot_input.txt)
+
  
 ## 7. Namelists
 * Three namelists are required for this experiment:
