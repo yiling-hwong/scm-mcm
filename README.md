@@ -37,7 +37,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_sf_sfclayrev.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_sf_sfclayrev.F)
   
 ## 4. Wind nudging
-* Zonal and medidional winds are nudged to ```U = V = 0 m/s``` with a relaxation timescale of 3 hrs
+* Zonal and meridional winds are nudged to ```U = V = 0 m/s``` with a relaxation timescale of 3 hrs
 * Wind nudging is enabled by setting ```relax_uv_flag = .true.``` in the namelist
 * The windspeed to nudged to for U and V can be set using the ```u_target``` and ```v_target``` options in the namelist
 * The relaxation timescale can also be set using the ```tau_relax_winds``` option in the namelist
