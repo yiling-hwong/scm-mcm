@@ -57,7 +57,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [u_shear_profile](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/u_shear_profile)
   * [v_shear_profile](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/v_shear_profile)
 
-## 6. Stratospheric relaxation of T in PreRCE runs
+## 6. Stratospheric relaxation of T in ```PreRCE``` runs
 * Relax T above 100  hPa to 200 K in ```PreRCE``` runs
 * Enable stratospheric T relaxation by setting ```relax_t_strato_flag = .true.``` in the namelist
 * The relaxation timescale is set using the ```tau_relax_t_strato``` option in the namelist
@@ -65,7 +65,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_t_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_strato.F)
 
-## 7. Stratospheric relaxation of T and qv in CTRL and PERTURBATION runs
+## 7. Stratospheric relaxation of T and QV in ```CTRL``` and ```PerturbLRF``` runs
 * Temperature and moisture are relaxed to the ```PreRCE``` profiles at and above tropopause
 * Stratospheric ```T``` and ```qv``` relaxation is enabled by setting ```relax_t_qv_strato_flag = .true.``` in the namelist
 * The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
