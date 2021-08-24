@@ -47,11 +47,15 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 * Apply vertical wind shear following the profile in Tompkins (2001)
 * Wind shear option is enabled by setting ```relax_u_shear_flag = .true.``` and ```relax_v_shear_flag = .true.``` in the namelist
 * The relaxation timescale can be set using the ```tau_relax_winds_shear``` option in the namelist
-* The U wind shear profile is read in from the ```u_shear_profile``` and ```v_shear_profile``` files in the run folder
+* The U wind shear profile is read in from the ```u_shear_profile``` in the run folder
+* The V wind is relaxed to 0 (```v_shear_profile```)
 * *Note:* When applying wind shear (```relax_u_shear_flag = .true.```), wind nudging must be disabled, i.e. set ```relax_uv_flag = .false.``` in the namelist
 * Modules involved:
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
-  * [module_relax_winds.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds_shear.F)
+  * [module_relax_winds_shear.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds_shear.F)
+* Required files (U and V profile):
+  * [u_shear_profile](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/u_shear_profile)
+  * [v_shear_profile](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/v_shear_profile)
 
 ## 6. Stratospheric relaxation of T in PreRCE runs
 * Relax T above 100  hPa to 200 K in ```PreRCE``` runs
@@ -63,11 +67,19 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 
 ## 7. Stratospheric relaxation of T and qv in CTRL and PERTURBATION runs
 * Temperature and moisture are relaxed to the ```PreRCE``` profiles at and above tropopause
-* The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
 * Stratospheric ```T``` and ```qv``` relaxation is enabled by setting ```relax_t_qv_strato_flag = .true.``` in the namelist
+* The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
 * Modules involved:
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_t_qv_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_qv_strato.F)
+
+## 8. Free tropospheric QV homogenisation
+* Homogenise free tropospheric (above 2 km) water vapor field to the domain mean value at every model level, following Grabowski and Moncrieff (2004)
+* QV homogenisation is enabled by setting ```homogenise_qv_flag = .true.``` in the namelist
+* The relaxation timescale is set using the ```tau_homogenise_qv``` option in the namelist
+* Modules involved:
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_homogenise_qv.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_homogenise_qv.F)
   
 ## 9. Surface type and sea surface temperature
 * Simulation is set over water surface by modifying the landmask and landuse indexs in the initialisation module:```grid%landmask = 0```(water surface) and ```grid%lu_index = 16``` (water landuse)
@@ -79,7 +91,6 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 * Required file (SST hotspot):
   * [sst_hotspot_input.txt](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/sst_hotspot_input.txt)
 
- 
 ## 7. Namelists
 * Three namelists are required for this experiment:
   * [namelist.lrf.rce.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.rce.input) - namelist for first RCE run
