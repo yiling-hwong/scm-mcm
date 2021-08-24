@@ -26,8 +26,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 * Modules involved (interactive radiation for RCE simulation):
   * [module_radiation_driver.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_radiation_driver.F)
   * [module_ra_rrtmg_sw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_sw.F)
-
-  
+ 
 ## 3. Ideal surface fluxes  
 * Surface sensible and latent heat fluxes are computed using a bulk aerodynamic formula with constant exchange coefficient (0.001) and a constant surface wind speed (4.8 m/s)
 * Ideal surface fluxes are enabled by setting ```ideal_evap_flag = .true.``` in the namelist
@@ -46,8 +45,8 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 
 ## 5. Stratospheric relaxation of T in PreRCE runs
 * Relax T above 100  hPa to 200 K in ```PreRCE``` runs
-* Enable stratospheric T relaxation by setting ```relax_t_strato_flag = .true.``` in namelist
-* The relaxation timescale is set using the ```tau_relax_t_strato``` option in namelist
+* Enable stratospheric T relaxation by setting ```relax_t_strato_flag = .true.``` in the namelist
+* The relaxation timescale is set using the ```tau_relax_t_strato``` option in the namelist
 * Modules involved:
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_t_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_strato.F)
@@ -63,9 +62,12 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
 ## 6. Surface type and sea surface temperature
 * Simulation is set over water surface by modifying the landmask and landuse indexs in the initialisation module:```grid%landmask = 0```(water surface) and ```grid%lu_index = 16``` (water landuse)
 * For SCM, the landmask and land use indices can also be set in the namelist: ```scm_lu_index = 16``` and ```scm_isltyp = 14```
-* Sea surface temperature is set to 28 degree Celsius by setting ```sst_ideal = 301.15``` in the namelist
+* For experiments with fixed sea surface temperature (SST), SST is set to 28 degree Celsius by setting ```sst_ideal = 301.15``` in the namelist
+* For experiments with variable SST (hotspot in middle of domain for MCM runs), the variable SST is enabled by setting ```use_variable_sst_flag = .true.``` in the namelist, the SST values will be read in from the ```sst_hotspot_input.txt``` file in the run folder
 * Modules involved:
-  * [module_initialize_scm_xy.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_initialize_scm_xy.F)
+  * [module_initialize_scm_xy.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_initialize_scm_xy.F)
+* Required file (SST hotspot):
+  * [sst_hotspot_input.txt](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/sst_hotspot_input.txt)
  
 ## 7. Namelists
 * Three namelists are required for this experiment:
