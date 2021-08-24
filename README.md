@@ -98,18 +98,24 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_ra_rrtmg_lw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_lw_2xco2.F)
 
 ## 11. Namelists
-* Three namelists are required for this experiment:
-  * [namelist.lrf.rce.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.rce.input) - namelist for first RCE run
-  * [namelist.lrf.restart.ctrl.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.restart.ctrl.input) - namelist for CONTROL run from restart file
-  * [namelist.lrf.restart.perturbation.input](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/namelist.lrf.restart.perturbation.input) -  namelist for PERTURBATION run from restart file
+* Three namelists are required for this experiment and for the SCM and MCM runs, respectively:
+  * Namelist for the ```PreRCE``` runs:
+    * [namelist.input.scm.rce](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.scm.rce)
+    * [namelist.input.mcm.rce](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.mcm.rce)
+  * Namelist for the ```CTRL``` runs (restarted from ```PreRCE``` runs):
+    * [namelist.input.scm.ctrl](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.scm.ctrl)
+    * [namelist.input.mcm.ctrl](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.mcm.ctrl)
+  * Namelist for the ```PerturbLRF``` runs (restarted from ```PreRCE``` runs):
+    * [namelist.input.scm.perturbation](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.scm.perturbation)
+    * [namelist.input.mcm.perturbation](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/namelist.input.mcm.perturbation)
   
-## 8. Initial sounding
+## 12. Initial sounding
 * The initial sounding of the RCEMIP project (Wing et al., 2018) is used
 * Initial profile:
-  * [input_sounding](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/runtime/input_sounding)
+  * [input_sounding](https://github.com/yiling-hwong/scm-mcm/blob/main/runtime/input_sounding)
   
-## 9. Registry
+## 13. Registry
 * New entries for the Registry are added to:
-  * [Registry.EM_COMMON](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/Registry/Registry.EM_COMMON)
+  * [Registry.EM_COMMON](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/Registry/Registry.EM_COMMON)
 
   
