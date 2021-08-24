@@ -24,7 +24,7 @@ Fortran modules and run time files required to run the experiments for comparing
   * [module_ideal_radiation.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_ideal_radiation.F)
 * *Note:* When fixed radiative cooling profile is disabled (```ideal_fix_rad_flag = .false.```), the interactive radiation driver is called and radiation is set
 for an RCE simulation. Under this setting, the RRTMG schemes for both LW and SW radiation are used. The diurnal and seasonal cycles are removed. The coriolis force is set to ```f = 0```.
-A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^2 are used. 
+A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m<sup>2</sup> are used. 
 * Modules involved (interactive radiation for RCE simulation):
   * [module_radiation_driver.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_radiation_driver.F)
   * [module_ra_rrtmg_sw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_sw.F)
