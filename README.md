@@ -1,9 +1,11 @@
 # Implementation of forcing experiments for SCM-MCM comparison in WRF
 
-Fortran modules and runtime files required to run experiments for comparing the behaviour of single-column model (SCM) vs. multi-column model (MCM) in WRF (v4.0.2).
+Fortran modules and run time files required to run the experiments for comparing the behaviour of single-column model (SCM) vs. multi-column model (MCM) in WRF (v4.0.2). The behaviour of the SCMs and MCMs are assessed by comparing their responses to two types of forcings:
+* small tendency perturbations (following the linear response function (LRF) framework of Kuang, 2010)
+* doubling of CO<sub>2</sub> in the atmosphere
 
 ## 1. Temperature and moisture tendency perturbations
-* Based on the linear response function (LRF) framework of Kuang (2010)
+* Based on the LRF framework, referred to here as the ```PerturbLRF``` simulations
 * Perturbations to temperature ```(dT/dt)``` and moisture tendencies ```(dq/dt)``` take the form of the sum of a delta and Gaussian functions as per ```Equation 4``` in Herman and Kuang (2010)
 * The perturbations (i.e. forcing) are enabled by setting ```force_lrf_flag = .true.``` in the namelist
 * To perturb ```dT/dt```, set the flag ```perturb_t_flag = .true.``` in the namelist, and the amplitude of the perturbation can be set using the namelist option ```TtendAmp```
