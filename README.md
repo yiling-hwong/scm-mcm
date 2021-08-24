@@ -15,17 +15,17 @@ Fortran modules and runtime files required to run experiments for comparing the 
 
 ## 2. Fixed radiative cooling profile
 * Fixed radiative cooling profile of -1.5 K/d from the surface to near 200 hPa and decreases linearly to zero near 100 hPa (see ```Figure 1``` in HK13)
-* Fixed radiative cooling profile is enabled by setting ```ideal_fix_rad_flag = 1``` in the namelist
+* Fixed radiative cooling profile is enabled by setting ```ideal_fix_rad_flag = .true.``` in the namelist
 * When fixed radiative cooling profile is enabled, call to interactive radiation driver is skipped and radiative cooling profile is prescribed by calling a separate module (```module_ideal_radiation.F```)
 * Modules involved (ideal fixed radiative cooling profile):
-  * [module_first_rk_step_part1.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_first_rk_step_part1.F)
-  * [module_ideal_radiation.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_ideal_radiation.F)
-* *Note:* When fixed radiative cooling profile is disabled (```ideal_fix_rad_flag = 0```), the interactive radiation driver is called and radiation is set
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_ideal_radiation.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_ideal_radiation.F)
+* *Note:* When fixed radiative cooling profile is disabled (```ideal_fix_rad_flag = .false.```), the interactive radiation driver is called and radiation is set
 for an RCE simulation. Under this setting, the RRTMG schemes for both LW and SW radiation are used. The diurnal and seasonal cycles are removed. The coriolis force is set to ```f = 0```.
 A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^2 are used. 
 * Modules involved (interactive radiation for RCE simulation):
-  * [module_radiation_driver.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/phys/module_radiation_driver.F)
-  * [module_ra_rrtmg_sw.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/phys/module_ra_rrtmg_sw.F)
+  * [module_radiation_driver.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_radiation_driver.F)
+  * [module_ra_rrtmg_sw.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_ra_rrtmg_sw.F)
 
   
 ## 3. Ideal surface fluxes  
