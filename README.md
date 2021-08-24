@@ -44,13 +44,21 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
   * [module_relax_winds.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds.F)
 
-## 5. Stratospheric relaxation of T and qv
-* Temperature and moisture are relaxed to the RCE profile of a previous run at and above tropopause
-* The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
-* Stratospheric ```T``` and ```qv``` relaxation is enabled by setting ```relax_t_qv = 1``` in the namelist
+## 5. Stratospheric relaxation of T in PreRCE runs
+* Relax T above 100  hPa to 200 K in ```PreRCE``` runs
+* Enable stratospheric T relaxation by setting ```relax_t_strato_flag = .true.``` in namelist
+* The relaxation timescale is set using the ```tau_relax_t_strato``` option in namelist
 * Modules involved:
-  * [solve_em.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/solve_em.F)
-  * [module_relax_t_qv.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_relax_t_qv.F)
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_relax_t_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_strato.F)
+
+## 5. Stratospheric relaxation of T and qv in CTRL and PERTURBATION runs
+* Temperature and moisture are relaxed to the ```PreRCE``` profiles at and above tropopause
+* The relaxation timescale increases from zero near a height of 160 hPa to a constant value of 0.5 day^-1 at and above the tropopause (~ 100 hPa) (see ```Figure 1``` in HK13)
+* Stratospheric ```T``` and ```qv``` relaxation is enabled by setting ```relax_t_qv_strato_flag = .true.``` in the namelist
+* Modules involved:
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_relax_t_qv_strato.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_t_qv_strato.F)
   
 ## 6. Surface type and sea surface temperature
 * Simulation is set over water surface by modifying the landmask and landuse indexs in the initialisation module:```grid%landmask = 0```(water surface) and ```grid%lu_index = 16``` (water landuse)
