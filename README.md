@@ -30,20 +30,19 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m^
   
 ## 3. Ideal surface fluxes  
 * Surface sensible and latent heat fluxes are computed using a bulk aerodynamic formula with constant exchange coefficient (0.001) and a constant surface wind speed (4.8 m/s)
-* Ideal surface fluxes are enabled by setting ```ideal_evap_flag = 1``` in the namelist
+* Ideal surface fluxes are enabled by setting ```ideal_evap_flag = .true.``` in the namelist
 * Modules involved:
-  * [module_surface_driver.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/phys/module_surface_driver.F)
-  * [module_sf_sfclayrev.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/phys/module_sf_sfclayrev.F)
-  * [module_sf_myjsfc.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/phys/module_sf_myjsfc.F) (for the Zhang-McFarlane convection scheme only)
+  * [module_surface_driver.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_surface_driver.F)
+  * [module_sf_sfclayrev.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/phys/module_sf_sfclayrev.F)
   
 ## 4. Wind nudging
-* Zonal wind profile is nudged to ```U = 4.8 m/s``` and meridional wind profile to ```V = 0 m/s``` with a relaxation timescale of 3 hrs
-* Wind nudging is enabled by setting ```relax_uv = 1``` in the namelist
+* Zonal and medidional winds are nudged to ```U = V = 0 m/s``` with a relaxation timescale of 3 hrs
+* Wind nudging is enabled by setting ```relax_uv_flag = .true.``` in the namelist
 * The windspeed to nudged to for U and V can be set using the ```u_target``` and ```v_target``` options in the namelist
-* The relaxation timescale can also be set using the ```tau_relax``` option in the namelist
+* The relaxation timescale can also be set using the ```tau_relax_winds``` option in the namelist
 * Modules involved:
-  * [module_first_rk_step_part1.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_first_rk_step_part1.F)
-  * [module_relax_winds.F](https://github.com/climate-enigma/wrf_lrf_scm/blob/V4.0.2/WRFV3/dyn_em/module_relax_winds.F)
+  * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
+  * [module_relax_winds.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_relax_winds.F)
 
 ## 5. Stratospheric relaxation of T and qv
 * Temperature and moisture are relaxed to the RCE profile of a previous run at and above tropopause
