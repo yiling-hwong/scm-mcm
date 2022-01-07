@@ -30,6 +30,9 @@ contains
     integer                                  :: i,j,k
     real,dimension(ims:ime,kms:kme,jms:jme)  :: u_tend,v_tend
     real,dimension(kte)                      :: target_wind_u, target_wind_v
+    real                                     :: sum_var_hor
+    real                                     :: count_hor
+    real,dimension( kts:kte )                :: var_hor_average
     character (len=256)                      :: message
 
     if ( relax_u_shear_flag .eqv. .true. ) then
@@ -39,16 +42,40 @@ contains
         ! read in target wind profile
         call read_input(kte,target_wind_u,target_wind_v)
 
+        do k = kts, kte
+           sum_var_hor = 0.
+           count_hor = 0.
 
-        do j=jts,jte
-           do k=kts,kte
-              do i=its,ite
+           ! Get mean wind
+           do j = jts, jte
+               do i = its, ite
+                   sum_var_hor = sum_var_hor + u(i,k,j)
+                   count_hor = count_hor + 1
+               end do
+           end do
 
-                  u_tend(i,k,j) = -(u(i,k,j) - target_wind_u(k)) / tau_relax_winds_shear
-                  uten(i,k,j) = uten(i,k,j) + u_tend(i,k,j)
+           var_hor_average(k) = sum_var_hor / count_hor
 
-              enddo
+           do j=jts,jte
+               do i=its,ite
+
+                   u_tend(i,k,j) = -(var_hor_average(k) - target_wind_u(k)) / tau_relax_winds_shear
+                   uten(i,k,j) = uten(i,k,j) + u_tend(i,k,j)
+
+               enddo
            enddo
+
+           !do j=jts,jte
+           !   do k=kts,kte
+           !      do i=its,ite
+
+           !          u_tend(i,k,j) = -(u(i,k,j) - target_wind_u(k)) / tau_relax_winds_shear
+           !          uten(i,k,j) = uten(i,k,j) + u_tend(i,k,j)
+
+           !      enddo
+           !   enddo
+           !enddo           
+
         enddo
 
     endif
@@ -61,17 +88,42 @@ contains
         ! read in target wind profile
         call read_input(kte,target_wind_u,target_wind_v)
 
+        do k = kts, kte
+           sum_var_hor = 0.
+           count_hor = 0.
 
-        do j=jts,jte
-           do k=kts,kte
-              do i=its,ite
+           ! Get mean wind
+           do j = jts, jte
+               do i = its, ite
+                   sum_var_hor = sum_var_hor + v(i,k,j)
+                   count_hor = count_hor + 1
+               end do
+           end do
 
-                  v_tend(i,k,j) = -(v(i,k,j) - target_wind_v(k)) / tau_relax_winds_shear
-                  vten(i,k,j) = vten(i,k,j) + v_tend(i,k,j)              
+           var_hor_average(k) = sum_var_hor / count_hor
 
-              enddo
+           do j=jts,jte
+               do i=its,ite
+
+                   v_tend(i,k,j) = -(var_hor_average(k) - target_wind_v(k)) / tau_relax_winds_shear
+                   vten(i,k,j) = vten(i,k,j) + v_tend(i,k,j)
+
+               enddo
            enddo
-        enddo
+
+
+           !do j=jts,jte
+           !   do k=kts,kte
+           !      do i=its,ite
+
+           !          v_tend(i,k,j) = -(v(i,k,j) - target_wind_v(k)) / tau_relax_winds_shear
+           !          vten(i,k,j) = vten(i,k,j) + v_tend(i,k,j)              
+
+           !      enddo
+           !   enddo
+           !enddo
+
+        enddo           
 
     endif
 
