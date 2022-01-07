@@ -50,7 +50,7 @@ A fixed cosine of the solar zenith angle of 0.8 and a solar constant of 544 W/m<
 * Wind shear option is enabled by setting ```relax_u_shear_flag = .true.``` and ```relax_v_shear_flag = .true.``` in the namelist
 * The relaxation timescale can be set using the ```tau_relax_winds_shear``` option in the namelist
 * The U wind shear profile is read in from the ```u_shear_profile``` in the run folder
-* The V wind is relaxed to 0 (```v_shear_profile```)
+* No relaxation is applied to V wind
 * *Note:* When applying wind shear (```relax_u_shear_flag = .true.```), wind nudging must be disabled, i.e. set ```relax_uv_flag = .false.``` in the namelist
 * Modules involved:
   * [module_first_rk_step_part1.F](https://github.com/yiling-hwong/scm-mcm/blob/main/WRFV3/dyn_em/module_first_rk_step_part1.F)
